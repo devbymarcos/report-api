@@ -1,0 +1,25 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "test": "vitest",
+    "build": "tsup src --format esm"
+  },
+  "dependencies": {
+    "@fastify/jwt": "^5.0.0",
+    "dotenv": "^16.5.0",
+    "fastify": "^5.3.3",
+    "fastify-plugin": "^5.0.1",
+    "pino-pretty": "^13.0.0"
+  },
+  "devDependencies": {
+    "@fastify/autoload": "^6.3.0",
+    "@fastify/sensible": "^6.0.3",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^22.15.21",
+    "tsconfig-paths": "^4.2.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.19.4"
+  }
+}
