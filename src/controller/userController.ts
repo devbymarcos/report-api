@@ -16,7 +16,8 @@ export async function userController(req: FastifyRequest, res: FastifyReply) {
       data: null,
     });
   }
-  const passwordHash = hashPassword(password);
+  const passwordHash = await hashPassword(password);
+
   try {
     const user = await createUser({
       name,
