@@ -1,6 +1,6 @@
 # Node modules
 node_modules/
-
+prisma/generated/
 # Build output
 dist/
 
