@@ -4,7 +4,7 @@ export async function createUser(data: {
   name: string;
   email: string;
   password: string;
-  userTypeId: number;
+  role: "USER" | "ADMIN"; // Optional role field, defaulting to "USER"
 }) {
   const isEmailExists = await prisma.user.findUnique({
     where: {
@@ -22,9 +22,10 @@ export async function createUser(data: {
         name: data.name,
         email: data.email,
         password: data.password,
-        userTypeId: data.userTypeId,
+        role: data.role,
       },
     });
+
     return user;
   } catch (error) {
     console.log(error);

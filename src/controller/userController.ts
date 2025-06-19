@@ -7,21 +7,22 @@ const userSchema = z.object({
   name: z.string().min(1, "Name is required"),
   email: z.string().email("Invalid email format"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
-  userTypeId: z.string().optional(),
+  role: z.enum(["USER", "ADMIN"]),
 });
 
 export async function userController(req: FastifyRequest, res: FastifyReply) {
-  const { name, email, password, userTypeId } = req.body as {
+  const { name, email, password, role } = req.body as {
     name: string;
     email: string;
     password: string;
-    userTypeId: string;
+    role: "USER" | "ADMIN"; // Optional role field, defaulting to "USER"
   };
+
   const verifySchema = userSchema.safeParse({
     name,
     email,
     password,
-    userTypeId,
+    role,
   });
 
   if (!verifySchema.success) {
@@ -38,7 +39,7 @@ export async function userController(req: FastifyRequest, res: FastifyReply) {
       name,
       email,
       password: String(passwordHash),
-      userTypeId: Number(userTypeId),
+      role,
     });
     return res.status(201).send({
       success: true,
