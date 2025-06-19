@@ -51,3 +51,12 @@ model Report {
 
     @@map("REPORTS")
 }
+
+model Forms {
+    id        Int      @id @default(autoincrement()) @map("id")
+    content   String   @map("content")
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("FORMS")
+}
