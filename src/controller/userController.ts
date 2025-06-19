@@ -3,10 +3,11 @@ import { createUser } from "services/userService";
 import { hashPassword } from "util/authUtils";
 
 export async function userController(req: FastifyRequest, res: FastifyReply) {
-  const { name, email, password } = req.body as {
+  const { name, email, password, userTypeId } = req.body as {
     name: string;
     email: string;
     password: string;
+    userTypeId: string;
   };
 
   if (!name || !email || !password) {
@@ -23,6 +24,7 @@ export async function userController(req: FastifyRequest, res: FastifyReply) {
       name,
       email,
       password: String(passwordHash),
+      userTypeId: Number(userTypeId),
     });
     return res.status(201).send({
       success: true,
@@ -30,7 +32,7 @@ export async function userController(req: FastifyRequest, res: FastifyReply) {
       data: user,
     });
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.log("Error creating user:", error);
     return res.status(500).send({
       success: false,
       message: "Internal server error",

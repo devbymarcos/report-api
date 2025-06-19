@@ -26,7 +26,7 @@ export async function loginController(req: FastifyRequest, res: FastifyReply) {
   }
   const payload = { username };
   const token = app.jwt.sign(payload, {
-    expiresIn: "1h", // expira em 1 hora
+    expiresIn: "2h", // expira em 2 hora
   });
 
   return res.status(200).send({
