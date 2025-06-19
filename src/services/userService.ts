@@ -6,6 +6,16 @@ export async function createUser(data: {
   password: string;
   userTypeId: number;
 }) {
+  const isEmailExists = await prisma.user.findUnique({
+    where: {
+      email: data.email,
+    },
+  });
+
+  if (isEmailExists) {
+    throw new Error("Email already exists");
+  }
+
   try {
     const user = await prisma.user.create({
       data: {

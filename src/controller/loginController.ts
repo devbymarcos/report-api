@@ -1,34 +1,40 @@
 import { FastifyRequest, FastifyReply } from "fastify";
+import { authService } from "services/authService";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
+});
 
 export async function loginController(req: FastifyRequest, res: FastifyReply) {
   const app = req.server;
-  const { username, password } = req.body as {
-    username: string;
+  const { email, password } = req.body as {
+    email: string;
     password: string;
   };
-
-  if (!username || !password) {
-    return res.status(400).send({
-      success: false,
-      message: "Username and password are required",
-      data: null,
-    });
-  }
-
-  // Simulate user authentication
-  // In a real application, you would check the username and password against a database
-  if (username !== "admin" || password !== "password") {
-    return res.status(401).send({
-      success: false,
-      message: "Invalid username or password",
-      data: null,
-    });
-  }
-  const payload = { username };
-  const token = app.jwt.sign(payload, {
-    expiresIn: "2h", // expira em 2 hora
+  const verifySchema = loginSchema.safeParse({
+    email,
+    password,
   });
 
+  if (!verifySchema.success) {
+    return res.status(400).send({
+      success: false,
+      message: verifySchema.error,
+      data: null,
+    });
+  }
+
+  const { success, token } = await authService(email, password, req.server);
+
+  if (!success) {
+    return res.status(401).send({
+      success: false,
+      message: "Invalid email or password",
+      data: null,
+    });
+  }
   return res.status(200).send({
     success: true,
     message: "Login successful",

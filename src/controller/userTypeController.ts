@@ -10,6 +10,7 @@ export async function userTypeController(
   req: FastifyRequest,
   res: FastifyReply
 ) {
+  console.log(req.user);
   const { name } = req.body as { name: string };
   const result = userTypeSchema.safeParse(req.body);
 
