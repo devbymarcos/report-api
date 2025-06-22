@@ -1,6 +1,6 @@
 import { prisma } from "database/prismaClient";
 
-export async function createUser(data: {
+export async function createUserService(data: {
   name: string;
   email: string;
   password: string;

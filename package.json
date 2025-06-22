@@ -4,7 +4,7 @@
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
     "test": "vitest",
-    "build": "tsup src --format esm"
+    "build": "tsup src --format cjs"
   },
   "dependencies": {
     "@fastify/jwt": "^5.0.0",
@@ -25,6 +25,7 @@
     "prisma": "^6.8.2",
     "tsconfig-paths": "^4.2.0",
     "tsup": "^8.5.0",
-    "tsx": "^4.19.4"
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }

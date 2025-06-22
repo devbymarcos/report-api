@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { createUser } from "services/userService";
+import { createUserService } from "services/userCreateService";
 import { hashPassword } from "util/authUtils";
 import { z } from "zod";
 
@@ -35,7 +35,7 @@ export async function userController(req: FastifyRequest, res: FastifyReply) {
   const passwordHash = await hashPassword(password);
 
   try {
-    const user = await createUser({
+    const user = await createUserService({
       name,
       email,
       password: String(passwordHash),
