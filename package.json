@@ -1,10 +1,9 @@
 {
-  "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",
     "test": "vitest",
-    "build": "tsup src --format cjs"
+    "build": "tsup src "
   },
   "dependencies": {
     "@fastify/jwt": "^5.0.0",

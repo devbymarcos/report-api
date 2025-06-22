@@ -7,7 +7,6 @@ export async function getAllReportService() {
         createdAt: "desc",
       },
     });
-
     return {
       success: true,
       message: "Reports retrieved successfully",

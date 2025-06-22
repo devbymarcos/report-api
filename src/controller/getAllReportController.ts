@@ -5,7 +5,8 @@ export async function getAllReportController(
   req: FastifyRequest,
   res: FastifyReply
 ) {
-  const reports = getAllReportService();
+  const reports = await getAllReportService();
+  console.log(reports);
 
   return res.status(200).send({
     success: true,

@@ -5,7 +5,7 @@ import { z } from "zod";
 const reportSchema = z.object({
   idTicket: z.string().min(6, "Ticket ID is required"),
   content: z.string().min(1, "Report type is required"),
-  closingDatetime: z.date(),
+  closingDatetime: z.coerce.date(),
   userId: z.number().int().positive("User ID must be a positive integer"),
 });
 
@@ -20,7 +20,7 @@ export async function reportController(req: FastifyRequest, res: FastifyReply) {
   const resultValidation = reportSchema.safeParse({
     idTicket: idTicket,
     content: content,
-    closingDatetime: new Date(closingDatetime),
+    closingDatetime: closingDatetime,
     userId: Number(id),
   });
 
