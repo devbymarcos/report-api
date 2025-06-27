@@ -24,6 +24,7 @@ export async function authService(
   const jwtToken = fastify.jwt.sign({
     id: user.id,
     email: user.email,
+    role: user.role,
   });
   return { success: true, token: jwtToken };
 }
