@@ -14,11 +14,11 @@ export async function authService(
   });
 
   if (!user) {
-    throw new Error("User not found");
+    return { success: false, token: null, message: "Usuário não econtrado" };
   }
   const userVerify = await verifyPassword(password, user.password);
   if (!userVerify) {
-    return { success: false, token: null };
+    return { success: false, token: null, message: "Senha incorreta" };
   }
 
   const jwtToken = fastify.jwt.sign({
@@ -26,5 +26,5 @@ export async function authService(
     email: user.email,
     role: user.role,
   });
-  return { success: true, token: jwtToken };
+  return { success: true, token: jwtToken, message: "Acesso ok" };
 }

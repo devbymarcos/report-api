@@ -26,18 +26,22 @@ export async function loginController(req: FastifyRequest, res: FastifyReply) {
     });
   }
 
-  const { success, token } = await authService(email, password, req.server);
+  const { success, token, message } = await authService(
+    email,
+    password,
+    req.server
+  );
 
   if (!success) {
     return res.status(401).send({
       success: false,
-      message: "Invalid email or password",
+      message: message,
       data: null,
     });
   }
   return res.status(200).send({
     success: true,
-    message: "Login successful",
+    message: message,
     token,
   });
 }
