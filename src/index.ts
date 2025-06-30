@@ -1,9 +1,12 @@
 import Fastify from "fastify";
-import sensible from "@fastify/sensible";
 import autoload from "@fastify/autoload";
+import { fileURLToPath } from "url";
 import path from "path";
 import dotenv from "dotenv";
+import cors from "@fastify/cors";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config();
 
 const app = Fastify({
@@ -18,7 +21,8 @@ const app = Fastify({
     },
   },
 });
-app.register(sensible);
+
+await app.register(cors);
 app.register(autoload, {
   dir: path.join(__dirname, "plugins"),
 });
